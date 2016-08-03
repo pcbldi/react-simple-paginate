@@ -1,0 +1,29 @@
+{
+  "name": "react-simple-paginate",
+  "version": "0.0.0",
+  "description": "paginate",
+  "main": "dist/react-simple-paginate.min.js",
+  "homepage": "https://github.com/prakash23/react-simple-paginate",
+  "authors": [
+    "Prakash"
+  ],
+  "moduleType": [
+    "amd",
+    "globals",
+    "node"
+  ],
+  "keywords": [
+    "react",
+    "react-component"
+  ],
+  "license": "MIT",
+  "ignore": [
+    ".editorconfig",
+    ".gitignore",
+    "package.json",
+    "src",
+    "node_modules",
+    "example",
+    "test"
+  ]
+}
