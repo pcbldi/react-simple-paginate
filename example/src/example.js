@@ -3,10 +3,18 @@ var ReactDOM = require('react-dom');
 var Paginate = require('react-simple-paginate');
 
 var App = React.createClass({
+
+	handler: function(offs){
+			console.log(offs);
+	},
+	
 	render () {
 		return (
 			<div>
-				<Paginate />
+				<Paginate 
+				total="50"
+				handler={this.handler}
+				/>
 			</div>
 		);
 	}

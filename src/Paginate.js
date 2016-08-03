@@ -24,7 +24,7 @@ var Paginate = React.createClass({
   pages: function(){
     var pageCount=(Math.ceil(this.props.total/this.props.limit));
     var pages=[]
-    for(int i=1;i<=pageCount;i++){
+    for(var i=1;i<=pageCount;i++){
     	pages.push(i);
     }
     return pages;
@@ -42,29 +42,33 @@ var Paginate = React.createClass({
   render () {
     let prevLink;
     let nextLink;
-    let lastPage= this.state.pages[this.state.pages.length-1];
+    var pages= this.pages();
+    var self=this;
+    let lastPage= pages[pages.length-1];
+    
     if(this.state.currentPage > 1){
-      prevLink = (<li class="{this.props.pageClassName}">
-		  <a onClick="(event) => this.onClick(currentPage-1)"> {this.props.prevLabel}</a>
+      prevLink = (<li className="{this.props.pageClassName}" key={0}>
+		  <a onClick={(event) => self.onClick(this.state.currentPage-1)}> {this.props.prevLabel}</a>
 		  </li>)
     }
     else{
       prevLink="";
     }
-    if(this.state.currentPage < lastPage)){
-      nextLink = (<li class="{this.props.pageClassName}">
-		  <a onClick="(event) => this.onClick(currentPage+1)"> {this.props.nextLabel}</a>
+    
+    if(this.state.currentPage < lastPage){
+      nextLink = (<li className="{this.props.pageClassName}" key={lastPage+1}>
+		  <a onClick={(event) => self.onClick(this.state.currentPage+1)}> {this.props.nextLabel}</a>
 		  </li>)
     }
     else{
       nextLink="";
     }
-    return <ul rt-scope="this.state.currentPage as currentPage" class="{this.props.containerClassName}">
+    return <ul className="{this.props.containerClassName}">
       {prevLink}
-    {this.pages.map(function(pageNumber, idx) {
+    {pages.map(function(pageNumber, idx) {
       return (
-	  <li class="{this.props.pageClassName}">
-	  <a onClick="(event) => this.onClick(pageNumber)"> {pageNumber}</a>
+	  <li className="{this.props.pageClassName}" key={idx}>
+	  <a onClick={(event) => self.onClick(pageNumber)}> {pageNumber}</a>
 	  </li>
       );
     })}
