@@ -43,6 +43,20 @@ var Paginate = require('react-simple-paginate');
       handler={this.handler}
 	/>
 ```
+Following are the props supported - 
+
+| Prop                 | Description                                                                                  		    |
+| ---------------------|:----------------------------------------------------------------------------------------------------------:| 
+| total                | Total number of elements (number of page links generated are based on this value)            		    | 
+| offset      	       | offset for currently shown elements, (current page is based on this value)                   		    | 
+| limit 	       | number of results shown in a page                      				      		    |
+| handler              | callback when any page link is clicked, the offset for that page is passed as a param to the callback      |
+| prevLabel            | Label for previous Link      								      		    |
+| nextLabel            | Label for next Link      								      		    |
+| containerClassName   | css class for the component root      							       		    |
+| pageClassName        | css class for the individual page links (also added to previous and next links.)      	      		    |
+| currentPageClassName | css class for the current page link      						      		    |
+
 
 
 ## Development (`src`, `lib` and the build process)
