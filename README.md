@@ -1,11 +1,11 @@
 # paginate
 
-__COMPONENT DESCRIPTION GOES HERE__
+__Simple and minnimal component for adding pagination links.__
 
 
 ## Demo & Examples
 
-Live demo: [prakash23.github.io/react-simple-paginate](http://prakash23.github.io/react-simple-paginate/)
+You can see the working example here - [prakash23.github.io/react-simple-paginate](http://prakash23.github.io/react-simple-paginate/)
 
 To build the examples locally, run:
 
@@ -30,21 +30,19 @@ npm install react-simple-paginate --save
 
 ## Usage
 
-__EXPLAIN USAGE HERE__
+The component generates links based on the total number of results, typical usage is like - 
 
 ```
 var Paginate = require('react-simple-paginate');
 
-<Paginate>Example</Paginate>
+	<Paginate
+      total="100"
+      containerClassName="pages-list"
+      currentPageClassName = "active-page"
+      pageClassName = "page-link"
+      handler={this.handler}
+	/>
 ```
-
-### Properties
-
-* __DOCUMENT PROPERTIES HERE__
-
-### Notes
-
-__ADDITIONAL USAGE NOTES__
 
 
 ## Development (`src`, `lib` and the build process)
