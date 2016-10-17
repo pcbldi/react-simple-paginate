@@ -262,13 +262,49 @@ var Paginate = React.createClass({
       offset: 0,
       limit: 10,
       pageClassName: "pagination-link",
-      containerClassName: "pagination-container"
+      containerClassName: "pagination-container",
+      centerPagesCount: 5,
+      cornerPagesCount: 2,
+      leftMarker: "...",
+      rightMarker: "..."
     };
   },
 
-  componentWillMount: function componentWillMount() {
+  getInitialState: function getInitialState() {
+    return {
+      'currentPage': (Math.max(Math.ceil(this.props.offset / this.props.limit)), 1),
+      'pages': this.pages(),
+      'initialPages': [],
+      'centerPages': [],
+      'finalPages': [],
+      'showLeftMarker': false,
+      'showRightMarker': false
+    };
+  },
+
+  componentDidMount: function componentDidMount() {
+    this.updateLinks();
+  },
+
+  updateLinks: function updateLinks() {
+    var cornerLinkLimit = this.props.cornerPagesCount;
+    var pages = this.state.pages;
+    var count = pages.length;
+    var currentPage = this.state.currentPage;
+    var initialPages = pages.slice(0, cornerLinkLimit);
+    var finalPages = pages.slice(Math.max(cornerLinkLimit, count - cornerLinkLimit), count);
+    var centerStartIndex = Math.max(cornerLinkLimit, currentPage - this.props.centerPagesCount);
+    var centerEndIndex = Math.min(currentPage + this.props.centerPagesCount, count - cornerLinkLimit);
+    var showLeftMarker = centerStartIndex > cornerLinkLimit;
+    var showRightMarker = centerEndIndex < count - cornerLinkLimit - 1;
+    var centerPages = pages.slice(centerStartIndex, centerEndIndex);
+
     this.setState(update(this.state, {
-      $set: { 'currentPage': (Math.max(Math.ceil(this.props.offset / this.props.limit)), 1) }
+      $set: { 'initialPages': initialPages,
+        'finalPages': finalPages,
+        'centerPages': centerPages,
+        'showLeftMarker': showLeftMarker,
+        'showRightMarker': showRightMarker }
     }));
   },
 
@@ -286,6 +322,7 @@ var Paginate = React.createClass({
     this.setState(update(this.state, {
       $set: { 'currentPage': pageNumber }
     }), function () {
+      self.updateLinks();
       self.props.handler((pageNumber - 1) * this.props.limit);
     });
   },
@@ -295,9 +332,10 @@ var Paginate = React.createClass({
 
     var prevLink = undefined;
     var nextLink = undefined;
-    var pages = this.pages();
     var self = this;
-    var lastPage = pages[pages.length - 1];
+    var lastPage = this.state.pages[this.state.pages.length - 1];
+    var leftMarker = "";
+    var rightMarker = "";
 
     if (this.state.currentPage > 1) {
       prevLink = React.createElement(
@@ -307,13 +345,29 @@ var Paginate = React.createClass({
           'a',
           { onClick: function (event) {
               return self.onClick(_this.state.currentPage - 1);
-            } },
+            }, href: 'javascript:void(0)' },
           ' ',
           this.props.prevLabel
         )
       );
     } else {
       prevLink = "";
+    }
+
+    if (this.state.showLeftMarker) {
+      leftMarker = React.createElement(
+        'li',
+        { className: 'left-marker' },
+        this.props.leftMarker
+      );
+    }
+
+    if (this.state.showRightMarker) {
+      rightMarker = React.createElement(
+        'li',
+        { className: 'right-marker' },
+        this.props.rightMarker
+      );
     }
 
     if (this.state.currentPage < lastPage) {
@@ -324,7 +378,7 @@ var Paginate = React.createClass({
           'a',
           { onClick: function (event) {
               return self.onClick(_this.state.currentPage + 1);
-            } },
+            }, href: 'javascript:void(0)' },
           ' ',
           this.props.nextLabel
         )
@@ -336,7 +390,7 @@ var Paginate = React.createClass({
       'ul',
       { className: this.props.containerClassName },
       prevLink,
-      pages.map(function (pageNumber, idx) {
+      this.state.initialPages.map(function (pageNumber, idx) {
         return React.createElement(
           'li',
           { className: self.props.pageClassName + (self.state.currentPage == pageNumber ? " " + self.props.currentPageClassName : ""), key: idx },
@@ -344,7 +398,37 @@ var Paginate = React.createClass({
             'a',
             { onClick: function (event) {
                 return self.onClick(pageNumber);
-              } },
+              }, href: 'javascript:void(0)' },
+            ' ',
+            pageNumber
+          )
+        );
+      }),
+      leftMarker,
+      this.state.centerPages.map(function (pageNumber, idx) {
+        return React.createElement(
+          'li',
+          { className: self.props.pageClassName + (self.state.currentPage == pageNumber ? " " + self.props.currentPageClassName : ""), key: idx },
+          React.createElement(
+            'a',
+            { onClick: function (event) {
+                return self.onClick(pageNumber);
+              }, href: 'javascript:void(0)' },
+            ' ',
+            pageNumber
+          )
+        );
+      }),
+      rightMarker,
+      this.state.finalPages.map(function (pageNumber, idx) {
+        return React.createElement(
+          'li',
+          { className: self.props.pageClassName + (self.state.currentPage == pageNumber ? " " + self.props.currentPageClassName : ""), key: idx },
+          React.createElement(
+            'a',
+            { onClick: function (event) {
+                return self.onClick(pageNumber);
+              }, href: 'javascript:void(0)' },
             ' ',
             pageNumber
           )
