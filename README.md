@@ -30,7 +30,7 @@ npm install react-simple-paginate --save
 
 ## Usage
 
-The component generates links based on the total number of results, typical usage is like - 
+The component generates links based on the total number of results, typical usage is like -
 
 ```
 var Paginate = require('react-simple-paginate');
@@ -43,12 +43,12 @@ var Paginate = require('react-simple-paginate');
       handler={this.handler}
 	/>
 ```
-Following are the props supported - 
+Following are the props supported -
 
 | Prop                 | Description                                                                                  		    |
-| ---------------------|:----------------------------------------------------------------------------------------------------------:| 
-| total                | Total number of elements (number of page links generated are based on this value)            		    | 
-| offset      	       | offset for currently shown elements, (current page is based on this value)                   		    | 
+| ---------------------|:----------------------------------------------------------------------------------------------------------:|
+| total                | Total number of elements (number of page links generated are based on this value)            		    |
+| offset      	       | offset for currently shown elements, (current page is based on this value)                   		    |
 | limit 	       | number of results shown in a page                      				      		    |
 | handler              | callback when any page link is clicked, the offset for that page is passed as a param to the callback      |
 | prevLabel            | Label for previous Link      								      		    |
@@ -56,6 +56,10 @@ Following are the props supported -
 | containerClassName   | css class for the component root      							       		    |
 | pageClassName        | css class for the individual page links (also added to previous and next links.)      	      		    |
 | currentPageClassName | css class for the current page link      						      		    |
+| centerPagesCount     | Number of page links shown after the left marker       						    |
+| cornerPagesCount     | Number of first and last pages shown.       						                    |
+| leftMarker           | Label for indicating there are more pages on the left.       						    |
+| rightMarker          | Label for indicating there are more pages on the right.       					    |
 
 
 
@@ -70,4 +74,3 @@ To build, watch and serve the examples (which will also watch the component sour
 __PUT LICENSE HERE__
 
 Copyright (c) 2016 Prakash.
-
