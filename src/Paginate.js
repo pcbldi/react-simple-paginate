@@ -48,7 +48,7 @@ var Paginate = React.createClass({
 
     if(this.state.currentPage > 1){
       prevLink = (<li className={this.props.pageClassName + (this.state.currentPage==0 ? " "+ this.props.currentPageClassName:"") } key={0}>
-		  <a onClick={(event) => self.onClick(this.state.currentPage-1)}> {this.props.prevLabel}</a>
+		  <a onClick={(event) => self.onClick(this.state.currentPage-1)} href="javascript:void(0)"> {this.props.prevLabel}</a>
 		  </li>)
     }
     else{
@@ -57,7 +57,7 @@ var Paginate = React.createClass({
 
     if(this.state.currentPage < lastPage){
       nextLink = (<li className={this.props.pageClassName + (this.state.currentPage==lastPage ? " "+ this.props.currentPageClassName:"")} key={lastPage+1}>
-		  <a onClick={(event) => self.onClick(this.state.currentPage+1)}> {this.props.nextLabel}</a>
+		  <a onClick={(event) => self.onClick(this.state.currentPage+1)} href="javascript:void(0)"> {this.props.nextLabel}</a>
 		  </li>)
     }
     else{
@@ -68,7 +68,7 @@ var Paginate = React.createClass({
     {pages.map(function(pageNumber, idx) {
       return (
 	  <li className={self.props.pageClassName + (self.state.currentPage==pageNumber ? " "+ self.props.currentPageClassName:"")} key={idx}>
-	  <a onClick={(event) => self.onClick(pageNumber)}> {pageNumber}</a>
+	  <a onClick={(event) => self.onClick(pageNumber)} href="javascript:void(0)"> {pageNumber}</a>
 	  </li>
       );
     })}
