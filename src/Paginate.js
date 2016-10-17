@@ -12,7 +12,9 @@ var Paginate = React.createClass({
       pageClassName: "pagination-link",
       containerClassName: "pagination-container",
       centerPagesCount: 5,
-      cornerPagesCount:2
+      cornerPagesCount:2,
+      leftMarker:"...",
+      rightMarker:"..."
     }
   },
 
@@ -91,11 +93,11 @@ var Paginate = React.createClass({
     }
 
     if(this.state.showLeftMarker){
-      leftMarker=(<li className="left-marker">...</li>);
+      leftMarker=(<li className="left-marker">{this.props.leftMarker}</li>);
     }
 
     if(this.state.showRightMarker){
-      rightMarker=(<li className="right-marker">...</li>);
+      rightMarker=(<li className="right-marker">{this.props.rightMarker}</li>);
     }
 
     if(this.state.currentPage < lastPage){
